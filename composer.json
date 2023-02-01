@@ -1,0 +1,31 @@
+{
+    "name": "maestro-module/admin",
+    "type": "maestro-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "Giuliano Sampaio",
+            "email": "giuguitar@gmail.com"
+        }
+    ],
+    "require": {
+        "maestriam/installers": "dev-master",  
+        "maestriam/maestro": "dev-master",
+        "maestriam/stylus": "dev-master",
+        "livewire/livewire": "^2.10"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Maestro\\Admin\\Providers\\AdminServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Maestro\\Admin\\": "src/"
+        }
+    }
+}
