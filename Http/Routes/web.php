@@ -12,8 +12,4 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix('admin')->group(function() {
-    Route::get('/home', 'AdminController@home')->name('maestro.admin.home');
-    Route::get('/login', 'AdminController@login')->name('maestro.admin.login');
-    Route::get('/logout', 'AdminController@logout')->name('maestro.admin.logout');
-});
+

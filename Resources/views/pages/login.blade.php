@@ -2,7 +2,7 @@
 
     <x-login-card> 
 
-        <livewire:admin.login-form>  
+        {{ $slot }}  
     
     </x-login-card>
 
