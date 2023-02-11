@@ -3,6 +3,10 @@
 namespace Maestro\Admin\Providers;
 
 use Livewire\Livewire;
+use Maestro\Admin\Views\Sidebar;
+use Maestro\Admin\Views\LoginForm;
+use Maestro\Admin\Views\BaseView;
+use Maestro\Admin\Views\UserDropDown;
 use Illuminate\Support\ServiceProvider;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
 
@@ -35,9 +39,10 @@ class AdminServiceProvider extends ServiceProvider
 
     public function registerComponents()
     {
-        Livewire::component('admin.sidebar', \Maestro\Admin\Views\Sidebar::class);
-        Livewire::component('admin.login-form', \Maestro\Admin\Views\LoginForm::class);
-        Livewire::component('admin.base-view', \Maestro\Admin\Views\BaseView::class);
+        Livewire::component('admin.sidebar', Sidebar::class);
+        Livewire::component('admin.login-form', LoginForm::class);
+        Livewire::component('admin.base-view', BaseView::class);
+        Livewire::component('admin.user-dropdown', UserDropDown::class);
         
         $this->app['config']['layout'] = 'admin::components.base-view';
     }

@@ -1,6 +1,10 @@
 <x-base>            
   
-  <x-navbar />
+  <x-navbar>      
+      <x-slot:action>
+        <livewire:admin.user-dropdown />
+      </x-slot:action>
+  </x-navbar>
 
   <livewire:admin.sidebar />
 

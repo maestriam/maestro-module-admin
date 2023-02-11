@@ -1,0 +1,1 @@
+<x-user-dropdown :name="$fullName"/> 
