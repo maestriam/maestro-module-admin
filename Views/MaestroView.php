@@ -36,6 +36,20 @@ abstract class MaestroView extends Component
     public string $cardTitle;
 
     /**
+     * Rota para fazer logout no sistema. 
+     *
+     * @var string
+     */
+    public string $logoutRoute = '';
+
+    public function __construct()
+    {
+        $route = route('maestro.users.logout');
+        
+        $this->setLogoutRoute($route);
+    }
+
+    /**
      * Renderiza o arquivo de view do componente,
      * utilizando o layout base do dashboard Maestro. 
      *
@@ -44,6 +58,34 @@ abstract class MaestroView extends Component
      */
     public function renderView(array $params = []) : View
     {
-        return view($this->view, $params)->layout($this->base);
+        $base = $this->getBaseParams();
+
+        return view($this->view, $params)
+                ->layout($this->base, $base);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
+    private function getBaseParams() : array
+    {
+        return [
+            'logout' => $this->logoutRoute
+        ];
+    }
+
+    /**
+     * Define o caminho de rota de logout do sistema. 
+     *
+     * @param string $route
+     * @return self
+     */
+    public function setLogoutRoute(string $route) : self
+    {
+        $this->logoutRoute = $route;
+
+        return $this;
     }
 }

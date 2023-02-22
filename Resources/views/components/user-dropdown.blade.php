@@ -1,1 +1,1 @@
-<x-user-dropdown :name="$fullName"/> 
+<x-user-dropdown :name="$fullName" :logout="$logout" /> 

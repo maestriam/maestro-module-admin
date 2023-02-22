@@ -3,8 +3,6 @@
 namespace Maestro\Admin\Views;
 
 use Livewire\Component;
-use Maestro\Users\Database\Models\User;
-use Maestro\Users\Support\Facade\Users;
 
 class UserDropDown extends Component
 {
@@ -12,7 +10,7 @@ class UserDropDown extends Component
 
     public string $fullName;
 
-    protected $listeners = ['user_login' => 'initialize'];
+    public string $logout;
 
     public function mount()
     {

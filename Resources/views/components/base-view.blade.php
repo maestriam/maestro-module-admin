@@ -2,7 +2,7 @@
   
   <x-navbar>      
       <x-slot:action>
-        <livewire:admin.user-dropdown />
+        <livewire:admin.user-dropdown :logout="$logout" />
       </x-slot:action>
   </x-navbar>
 
