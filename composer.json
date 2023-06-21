@@ -9,11 +9,6 @@
         }
     ],
     "require": {
-        "maestriam/installers": "dev-master",  
-        "maestriam/maestro": "dev-master",
-        "maestriam/stylus": "dev-master",
-        "maestro-module/accounts": "dev-master",
-        "maestro-module/users": "dev-master",
         "livewire/livewire": "^2.10"
     },
     "extra": {
