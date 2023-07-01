@@ -42,5 +42,7 @@ class SetupCommand extends Command
         Artisan::call('module:enable Users');
         Artisan::call('module:enable Accounts');
         Artisan::call('maestro:migrate Users');
+        Artisan::call('samurai:publish maestriam/stylus');
+        Artisan::call('samurai:use maestriam/stylus');
     }
 }
