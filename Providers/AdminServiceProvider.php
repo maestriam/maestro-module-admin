@@ -8,6 +8,7 @@ use Maestro\Admin\Views\LoginForm;
 use Maestro\Admin\Views\BaseView;
 use Maestro\Admin\Views\UserDropDown;
 use Illuminate\Support\ServiceProvider;
+use Maestro\Admin\Console\SetupCommand;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
 
 class AdminServiceProvider extends ServiceProvider
@@ -35,6 +36,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerSeeds();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->registerComponents();
+        $this->registerCommands();
     }
 
     public function registerComponents()
@@ -45,6 +47,13 @@ class AdminServiceProvider extends ServiceProvider
         Livewire::component('admin.user-dropdown', UserDropDown::class);
         
         $this->app['config']['layout'] = 'admin::components.base-view';
+    }
+
+    public function registerCommands()
+    {
+        $this->commands([
+            SetupCommand::class
+        ]);
     }
 
     /**

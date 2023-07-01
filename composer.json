@@ -9,7 +9,10 @@
         }
     ],
     "require": {
-        "livewire/livewire": "^2.10"
+        "livewire/livewire": "^2.10",
+        "maestriam/stylus": "^0.0.2",
+        "maestro-module/users": "^0.0.1",
+        "maestro-module/accounts": "^0.0.1"
     },
     "extra": {
         "laravel": {
