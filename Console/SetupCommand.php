@@ -45,7 +45,9 @@ class SetupCommand extends Command
         Artisan::call('maestro:migrate Users');
         Artisan::call('samurai:publish maestriam/stylus');
         Artisan::call('samurai:use maestriam/stylus');
+        Artisan::call('samurai:refresh');   
+        sleep(1);     
         Artisan::call('maestro:seed Users');
-        Artisan::call('samurai:refresh');        
+        $this->info('Admin module configurated with succesful');      
     }
 }
