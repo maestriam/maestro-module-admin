@@ -2,6 +2,7 @@
 
 namespace Maestro\Admin\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Livewire\Livewire;
 use Maestro\Admin\Views\Sidebar;
 use Maestro\Admin\Views\LoginForm;
@@ -10,6 +11,7 @@ use Maestro\Admin\Views\UserDropDown;
 use Illuminate\Support\ServiceProvider;
 use Maestro\Admin\Console\SetupCommand;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
+use Maestro\Admin\Views\OptionResource;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -41,10 +43,10 @@ class AdminServiceProvider extends ServiceProvider
 
     public function registerComponents()
     {
-        Livewire::component('admin.sidebar', Sidebar::class);
-        Livewire::component('admin.login-form', LoginForm::class);
-        Livewire::component('admin.base-view', BaseView::class);
+        Livewire::component('admin.sidebar', Sidebar::class);        
+        Livewire::component('admin.base-view', BaseView::class);        
         Livewire::component('admin.user-dropdown', UserDropDown::class);
+        Livewire::component('admin.option-resource', OptionResource::class);
         
         $this->app['config']['layout'] = 'admin::components.base-view';
     }
@@ -94,9 +96,10 @@ class AdminServiceProvider extends ServiceProvider
 
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
-        $this->publishes([
-            $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-views']);
+        $this->publishes([$sourcePath => $viewPath], [
+            'views', 
+            $this->moduleNameLower . '-module-views'
+        ]);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
     }
@@ -130,7 +133,7 @@ class AdminServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
