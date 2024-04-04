@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "livewire/livewire": "^2.10",
+        "livewire/livewire": "dev-master",
         "maestriam/stylus": "dev-master",
         "maestro-module/users": "dev-master",
         "maestro-module/accounts": "dev-master"
