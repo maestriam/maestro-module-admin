@@ -2,50 +2,61 @@
 
 namespace Maestro\Admin\Tests;
 
+use Tests\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Maestro\Users\Support\Facade\Users;
-use Tests\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class TestCase extends BaseTestCase
 {
     use WithFaker;
 
+    /**
+     * Executa os preparativos para a execução dos testes
+     *
+     * @return TestCase
+     */
     protected function start() : TestCase
     {
-        $this->migrateTables();
-        $this->seedTables();
-        return $this;
+        return $this->up();        
     }
     
-    protected function finish()
+    /**
+     * Executa os preparativos para o encerramento dos testes      
+     *
+     * @return TestCase
+     */
+    protected function finish() : TestCase
     {
-        $this->rollbackTables();
+        return $this->down();
     }
 
-    protected function migrateTables()
+    /**
+     * Executa os migrates dos módulos de Accounts e Users 
+     * para a execução dos testes.  
+     *
+     * @return self
+     */
+    protected function up() : TestCase
     {
         Artisan::call('maestro:migrate Accounts');
         Artisan::call('maestro:migrate Users');
-        // Artisan::call('maestro:migrate Companies');
-        // Artisan::call('maestro:migrate Projects');
-        // Artisan::call('maestro:migrate Tasks');
-        // Artisan::call('maestro:migrate Activities');
+
+        return $this;
     }
     
-    protected function seedTables()
+    /**
+     * Faz o rollback dos módulos de Accounts e Users
+     * para o encerramento dos testes.
+     *
+     * @return TestCase
+     */
+    protected function down() : TestCase
     {
-        //Artisan::call('maestro:seed Companies');
-    }
-    
-    protected function rollbackTables()
-    {
-        // Artisan::call('maestro:rollback Activities');
-        // Artisan::call('maestro:rollback Tasks');
-        // Artisan::call('maestro:rollback Projects');
-        // Artisan::call('maestro:rollback Companies');
         Artisan::call('maestro:rollback Users');
         Artisan::call('maestro:rollback Accounts');
+
+        return $this;
     }
 
     /**

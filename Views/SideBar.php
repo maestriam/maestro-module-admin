@@ -3,6 +3,7 @@
 namespace Maestro\Admin\Views;
 
 use Livewire\Component;
+use Maestriam\Maestro\Entities\Module;
 use Maestriam\Maestro\Support\Maestro;
 
 class SideBar extends Component
@@ -19,14 +20,14 @@ class SideBar extends Component
      * 
      * @var string
      */
-    public string $abbr = 'Ms';
+    public string $abbr = 'MS';
 
     /**
      * Lista de módulos instalados no sistema
      * 
      * @var array
      */
-    public array $modules;
+    private array $modules = [];
     
     /**
      * Inicia os atributos
@@ -48,7 +49,7 @@ class SideBar extends Component
 
     /**
      * Retorna a lista de módulos instalados que devem
-     * ser exibidos no menu lateral do sistema.
+     * ser exibidos no menu lateral do sistema.  
      * Não deve vincular o próprio módulo de admin. 
      * 
      * @return array
@@ -58,11 +59,26 @@ class SideBar extends Component
         $modules = Maestro::modules()->all();
 
         foreach ($modules as $i => $module) {
-            if ($module->name() == 'Admin') {
+            if ($module->name() == 'Admin' || ! $this->isVisible($module)) {
                 unset($modules[$i]);
             }
         }
 
         return $modules;
+    }
+
+    /**
+     * Verifica se o modulo está permitido para ser exibido no menu.  
+     * Se caso a propriedade não estiver definido no arquivo module.json,
+     * deve ser exibido por padrão. 
+     *
+     * @param Module $module
+     * @return boolean
+     */
+    private function isVisible(Module $module) : bool
+    {
+        $visible = $module->info()->visible ?? true;
+
+        return (! $visible) ? false : true;
     }
 }

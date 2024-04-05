@@ -1,4 +1,1 @@
-<x-sidebar 
-    :abbr="$abbr"
-    :title="$title" 
-    :modules="$modules"/>
+<x-sidebar :abbr="$abbr" :title="$title" :modules="$this->modules"/>
