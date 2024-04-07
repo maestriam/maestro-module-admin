@@ -12,11 +12,11 @@ trait CamelAttributes
      * @param string $key
      * @return void
      */
-    public function __get(mixed $key) 
+    public function __get(mixed $key) : mixed
     {
         $value = $this->getCamelAttribute($key);
 
-        if ($value) return $value;
+        if ($value) return $value;        
                
         $value = $this->getSnakeCase($key);
 
@@ -29,7 +29,7 @@ trait CamelAttributes
      * @param mixed $key
      * @return string|null
      */
-    private function getCamelAttribute(mixed $key) : ?string
+    private function getCamelAttribute(mixed $key) : mixed
     {
         return $this[$key] ?? null;
     }
@@ -40,7 +40,7 @@ trait CamelAttributes
      * @param mixed $key
      * @return string|null
      */
-    private function getSnakeCase(mixed $key)  : ?string
+    private function getSnakeCase(mixed $key) : mixed
     {
         $field = Str::snake($key); 
 
