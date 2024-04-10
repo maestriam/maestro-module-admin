@@ -38,6 +38,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerSeeds();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->registerComponents();
+        $this->registerHelpers();
         $this->registerCommands();
     }
 
@@ -66,6 +67,7 @@ class AdminServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(QueryBuilderServiceProvider::class);
     }
 
     /**
@@ -83,6 +85,16 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->publishes([$path => $target], 'config');
         $this->mergeConfigFrom($path, $this->moduleNameLower);
+    }
+
+    public function registerHelpers()
+    {
+        $folder = '/Support/Helpers/*.php';
+        $helpers = module_path($this->moduleName, $folder);
+
+        foreach (glob($helpers) as $filename){
+            require_once($filename);
+        }
     }
 
     /**

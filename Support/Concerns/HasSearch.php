@@ -27,17 +27,59 @@ trait HasSearch
                     str_contains($attribute, '.'),
                     function (Builder $query) use ($attribute, $searchTerm) {
                         [$relationName, $relationAttribute] = explode('.', $attribute);
-
                         $query->orWhereHas($relationName, function (Builder $query) use ($relationAttribute, $searchTerm) {
                             $query->where($relationAttribute, 'LIKE', "%{$searchTerm}%");
                         });
                     },
                     function (Builder $query) use ($attribute, $searchTerm) {
-                        $query->orWhere($attribute, 'LIKE', "%{$searchTerm}%");
+                        $this->getDefaultWhere($query, $attribute, $searchTerm);
                     }
                 );
             }
         });
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $query
+     * @return void
+     */
+    private function getDefaultWhere(Builder $query, string $attr, string $term)
+    {
+        if ($this->hasConcatColumns($attr)) {
+            return $this->getWhereConcat($query, $attr, $term);
+        }
+        
+        return $query->orWhere($attr, 'LIKE', "%{$term}%");
+    }
+
+    /**
+     * Verifica se as colunas descritas como pesquisaveis (searchable)
+     * possuem concatenção entre elas.
+     * Se sim, deve retorna true.  
+     *
+     * @param string $attribute
+     * @return boolean
+     */
+    private function hasConcatColumns(string $attribute) : bool
+    {
+        return str_contains($attribute, ':');
+    }
+
+    /**
+     * Interpreta os nomes das colunas como concatenaveis e 
+     * retorna seu SQL para interpretação. 
+     *
+     * @param string $attribute
+     * @param string $search
+     * @return string
+     */
+    private function getWhereConcat(Builder $query, string $attribute, string $term) : Builder 
+    {
+        $fields = explode(':', $attribute);
+
+        return $query->orWhereConcat($fields, 'LIKE', "%{$term}%");
     }
 
     /**

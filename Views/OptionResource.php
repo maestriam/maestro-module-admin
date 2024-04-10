@@ -3,9 +3,16 @@
 namespace Maestro\Admin\Views;
 
 use Livewire\Component;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OptionResource extends Component
 {
+    use LivewireAlert;
+
+    protected $listeners = [
+        'confirmed'
+    ];
+
     /**
      * Nome do módulo que fornecerá as rotas de recursos
      *
@@ -58,8 +65,24 @@ class OptionResource extends Component
 
         return view('admin::components.option-resource');
     }
+    
+    public function confirmed()
+    {
+        dd('xxxxx');
+    }
 
     public function remove() 
-    {    
+    {  
+        $this->alert('warning', 'Atenção', [
+            'text' => 'Deseja realmente excluir este registro?',
+            'timer' => null,
+            'position' => 'center',
+            'toast' => false,
+            'showDenyButton' => true,
+            'deniedButtonText' => 'Cancelar',
+            'showConfirmButton' => true,
+            'onConfirmed' => 'confirmed',
+            'confirmButtonText' => 'Confirmar',            
+        ]);
     }
 }
