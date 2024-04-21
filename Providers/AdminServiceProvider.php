@@ -11,7 +11,7 @@ use Maestro\Admin\Views\OptionResource;
 use Illuminate\Support\ServiceProvider;
 use Maestro\Admin\Console\SetupCommand;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
-
+use Maestro\Admin\Views\Pages\NotFoundPage;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -48,15 +48,14 @@ class AdminServiceProvider extends ServiceProvider
         Livewire::component('admin.base-view', BaseView::class);        
         Livewire::component('admin.user-dropdown', UserDropDown::class);
         Livewire::component('admin.option-resource', OptionResource::class);
+        Livewire::component('admin.not-found-page', NotFoundPage::class);
         
         $this->app['config']['layout'] = 'admin::components.base-view';
     }
 
     public function registerCommands()
     {
-        $this->commands([
-            SetupCommand::class
-        ]);
+        $this->commands([SetupCommand::class]);
     }
 
     /**

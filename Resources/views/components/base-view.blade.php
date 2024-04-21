@@ -1,4 +1,4 @@
-<x-base>            
+<x-base :title="$pageTitle">            
   
   <x-navbar>      
       <x-slot:action>

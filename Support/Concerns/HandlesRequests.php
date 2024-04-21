@@ -32,11 +32,13 @@ trait HandlesRequests
      */
     public function validator(array|FormRequest $input) : Validator
     {
-        $data = is_array($input) ? $input : $input->all();
-        
+        $data = is_array($input) ? $input : $input->all();        
+
         $rules = $this->request->rules();
 
-        return ValidatorFactory::make($data, $rules);
+        $messages = $this->request->messages();
+
+        return ValidatorFactory::make($data, $rules, $messages);
     }
 
     /**

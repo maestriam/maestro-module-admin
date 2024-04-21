@@ -26,10 +26,7 @@ trait HasSearch
                 $query->when(
                     str_contains($attribute, '.'),
                     function (Builder $query) use ($attribute, $searchTerm) {
-                        [$relationName, $relationAttribute] = explode('.', $attribute);
-                        $query->orWhereHas($relationName, function (Builder $query) use ($relationAttribute, $searchTerm) {
-                            $query->where($relationAttribute, 'LIKE', "%{$searchTerm}%");
-                        });
+                        $this->getRelationWhere($query, $attribute, $searchTerm);
                     },
                     function (Builder $query) use ($attribute, $searchTerm) {
                         $this->getDefaultWhere($query, $attribute, $searchTerm);
@@ -40,10 +37,31 @@ trait HasSearch
     }
 
     /**
-     * Undocumented function
+     * Retorna a clausula de pesquisa com relacionamentos
      *
-     * @param [type] $query
+     * @param Builder $query
+     * @param string $attr
+     * @param string $term
      * @return void
+     */
+    private function getRelationWhere(Builder $query, string $attr, string $term)
+    {
+        [$relationName, $relationAttribute] = explode('.', $attr);            
+        
+        return $query->orWhereHas(
+            $relationName, 
+            function (Builder $query) use ($relationAttribute, $term) {
+                $query->where($relationAttribute, 'LIKE', "%{$term}%");
+        });
+    }
+
+    /**
+     * Retorna a clausula de pesquisa padrão para consulta
+     *
+     * @param Builder $query
+     * @param string $attr
+     * @param string $term
+     * @return mixed
      */
     private function getDefaultWhere(Builder $query, string $attr, string $term)
     {
@@ -73,7 +91,7 @@ trait HasSearch
      *
      * @param string $attribute
      * @param string $search
-     * @return string
+     * @return Builder
      */
     private function getWhereConcat(Builder $query, string $attribute, string $term) : Builder 
     {

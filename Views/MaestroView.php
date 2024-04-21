@@ -26,7 +26,7 @@ abstract class MaestroView extends Component
      *
      * @var string
      */
-    protected string $pageTitle;
+    protected ?string $pageTitle = null;
 
     /**
      * Título do card de conteúdo principal. 
@@ -71,7 +71,8 @@ abstract class MaestroView extends Component
     private function getBaseParams() : array
     {
         return [
-            'logout' => $this->logoutRoute
+            'logout'    => $this->logoutRoute,
+            'pageTitle' => $this->pageTitle
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace Maestro\Admin\Views;
 
 use Livewire\Component;
+use Maestro\Users\Support\Facade\Users;
 
 class UserDropDown extends Component
 {
@@ -19,14 +20,14 @@ class UserDropDown extends Component
 
     private function setUser() : self
     {
-        $this->user = (object) session('userData');
+        $this->user = Users::auth()->current();
 
         return $this;
     }
 
     private function setFullName() : self
     {
-        $name = $this->user->first_name . ' '. $this->user->last_name;
+        $name = $this->user->firstName . ' '. $this->user->lastName;
 
         $this->fullName = $name;
 

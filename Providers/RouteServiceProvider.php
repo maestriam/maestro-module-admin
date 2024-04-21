@@ -40,8 +40,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapWebRoutes();
         $this->mapApiRoutes();
+        $this->mapWebRoutes();
+        $this->mapLiveRoutes();        
     }
 
     /**
@@ -53,11 +54,18 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        $web = $this->getRouteFile('web');
+        $group = $this->getRouteFile('web');
 
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->group($web);
+            ->group($group);
+    }
+
+    protected function mapLiveRoutes()
+    {
+        Route::middleware('web')
+            ->namespace('Maestro\Admin\Views')
+            ->group(module_path('Admin', '/Http/Routes/live.php'));
     }
 
     /**
@@ -85,7 +93,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function getRouteFile(string $name) : string 
     {
-        $file = $this->dir . $name . '.php';
+        $file = "{$this->dir}{$name}.php";
 
         return module_path('Admin', $file);
     }

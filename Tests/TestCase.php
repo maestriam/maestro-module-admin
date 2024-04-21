@@ -6,6 +6,7 @@ use Tests\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Maestro\Users\Support\Facade\Users;
 use Illuminate\Foundation\Testing\WithFaker;
+use Maestro\Users\Database\Models\User;
 
 class TestCase extends BaseTestCase
 {
@@ -62,10 +63,25 @@ class TestCase extends BaseTestCase
     /**
      * Gera um usuário fake e inicia a sessão para a criação dos testes.
      *
+     * @return ?User
+     */
+    public function initSession() : ?User
+    {
+        return Users::factory()->login();
+    }
+
+    /**
+     * Verifica se redireciona para a tela de login 
+     * ao tentar acessar uma determinada rota 
+     *
      * @return void
      */
-    public function initSession() : void
+    public function assertRedirectWithoutLogin(string $route)
     {
-        Users::factory()->login();
-    }  
+        Users::auth()->logout();
+
+        $login = route('maestro.users.login');
+
+        $this->get($route)->assertRedirect($login);
+    }
 }
