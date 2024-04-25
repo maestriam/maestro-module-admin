@@ -6,11 +6,12 @@ use Tests\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Maestro\Users\Support\Facade\Users;
 use Illuminate\Foundation\Testing\WithFaker;
+use Maestro\Companies\Support\Concerns\WithCompaniesFaker;
 use Maestro\Users\Database\Models\User;
 
 class TestCase extends BaseTestCase
 {
-    use WithFaker;
+    use WithFaker, WithCompaniesFaker;
 
     /**
      * Executa os preparativos para a execução dos testes
@@ -58,16 +59,6 @@ class TestCase extends BaseTestCase
         Artisan::call('maestro:rollback Accounts');
 
         return $this;
-    }
-
-    /**
-     * Gera um usuário fake e inicia a sessão para a criação dos testes.
-     *
-     * @return ?User
-     */
-    public function initSession() : ?User
-    {
-        return Users::factory()->login();
     }
 
     /**

@@ -47,12 +47,12 @@ trait HandlesRequests
      * Em caso de algum atributo estiver errado, deve disparar
      * uma exception. 
      *
-     * @param StoreUserRequest|array $input
+     * @param StoreUserRequest|array $request
      * @return boolean
      */
-    protected function guard(array|FormRequest $input) : void
+    protected function guard(array|FormRequest $request) : void
     {
-        if (! $this->isValid($input)) {            
+        if (! $this->isValid($request)) {            
             throw new InvalidRequestException();  
         }
     }
