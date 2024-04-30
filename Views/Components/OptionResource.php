@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Admin\Views;
+namespace Maestro\Admin\Views\Components;
 
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -25,33 +25,40 @@ class OptionResource extends Component
      *
      * @var string
      */
-    public string $resourceId = "";
+    public string $id = "";
 
     /**
      * Rota de edição do recurso
      *
      * @var string
      */
-    private string $edit;
+    protected string $edit;
 
     /**
      * Rota de visualização do recurso
      *
      * @var string
      */
-    private string $view;
+    protected string $view;
 
-    public function initRoutes()
+    public function mount()
+    {        
+        $this->initRoutes();
+    }
+
+    public function initRoutes() : self
     {
         $this->edit = $this->getRoute('edit');
         $this->view = $this->getRoute('view');
+
+        return $this;
     }
 
-    private function getRoute(string $action) : string
+    protected function getRoute(string $action) : string
     {
         $route = sprintf("maestro.%s.%s", $this->module, $action);
         
-        return route($route, $this->resourceId);
+        return route($route, $this->id);
     }
 
     /**
@@ -61,8 +68,6 @@ class OptionResource extends Component
      */
     public function render()
     {
-        $this->initRoutes();
-
         return view('admin::components.option-resource');
     }
     

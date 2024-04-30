@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Admin\Views;
+namespace Maestro\Admin\Views\Components;
 
 use Livewire\Component;
 use Maestriam\Maestro\Entities\Module;

@@ -11,7 +11,7 @@ use Maestro\Users\Database\Models\User;
 
 class TestCase extends BaseTestCase
 {
-    use WithFaker, WithCompaniesFaker;
+    use WithFaker;
 
     /**
      * Executa os preparativos para a execução dos testes
