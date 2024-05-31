@@ -4,14 +4,11 @@ namespace Maestro\Admin\Views\Components;
 
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 
 class OptionResource extends Component
 {
     use LivewireAlert;
-
-    protected $listeners = [
-        'confirmed'
-    ];
 
     /**
      * Nome do módulo que fornecerá as rotas de recursos
@@ -41,11 +38,16 @@ class OptionResource extends Component
      */
     protected string $view;
 
-    public function mount()
+    public function __construct()
     {        
         $this->initRoutes();
     }
 
+    /**
+     * Inicia as rotas principais do módulo
+     *
+     * @return self
+     */
     public function initRoutes() : self
     {
         $this->edit = $this->getRoute('edit');
@@ -71,23 +73,45 @@ class OptionResource extends Component
         return view('admin::components.option-resource');
     }
     
+    #[On('admin::option-resource:delete')]
     public function confirmed()
     {
-        dd('xxxxx');
+        dd('remove....');
     }
 
-    public function remove() 
-    {  
-        $this->alert('warning', 'Atenção', [
-            'text' => 'Deseja realmente excluir este registro?',
-            'timer' => null,
-            'position' => 'center',
-            'toast' => false,
-            'showDenyButton' => true,
-            'deniedButtonText' => 'Cancelar',
+    /**
+     * Evento executado quando o usuário clica em remover registro. 
+     *
+     * @return void
+     */
+    protected function remove()
+    {
+        $title =  __('admin::modals.delete.title');
+        $text  =  __('admin::modals.delete.text');
+
+        $this->displayDeleteModalComponent($title, $text);
+    }
+    
+    /**
+     * Exibe o modal para confirmar a exclusão do registro. 
+     *
+     * @param string $title
+     * @param string $text
+     * @return void
+     */
+    protected function displayDeleteModalComponent(string $title, string $text) 
+    {          
+        $this->alert('warning', $title, [
+            'timer'             => null,
+            'toast'             => false,
+            'showDenyButton'    => true,
             'showConfirmButton' => true,
-            'onConfirmed' => 'confirmed',
-            'confirmButtonText' => 'Confirmar',            
+            'reverseButtons'    => true,
+            'html'              => $text,
+            'position'          => 'center',
+            'onConfirmed'       => 'admin::option-resource:delete',
+            'denyButtonText'    => __('admin::modals.delete.cancel'),
+            'confirmButtonText' => __('admin::modals.delete.confirm'),            
         ]);
     }
 }
