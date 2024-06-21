@@ -6,8 +6,6 @@ use Tests\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Maestro\Users\Support\Facade\Users;
 use Illuminate\Foundation\Testing\WithFaker;
-use Maestro\Companies\Support\Concerns\WithCompaniesFaker;
-use Maestro\Users\Database\Models\User;
 
 class TestCase extends BaseTestCase
 {
