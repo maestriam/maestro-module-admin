@@ -4,6 +4,8 @@ namespace Maestro\Admin\Views;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Livewire\Attributes\Layout;
 
 abstract class MaestroView extends Component
 {
@@ -26,7 +28,7 @@ abstract class MaestroView extends Component
      *
      * @var string
      */
-    protected ?string $pageTitle = null;
+    public string $pageTitle = "Maestro";
 
     /**
      * Título do card de conteúdo principal. 
@@ -59,6 +61,8 @@ abstract class MaestroView extends Component
     public function renderView(array $params = []) : View
     {
         $base = $this->getBaseParams();
+
+        $params = array_merge($params, $base);    
 
         return view($this->view, $params)->layout($this->base, $base);
     }

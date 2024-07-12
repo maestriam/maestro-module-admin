@@ -11,7 +11,7 @@ class NotFoundPage extends MaestroView
      */
     protected string $view = 'admin::pages.not-found';
 
-    protected ?string $pageTitle = 'Pagina não encontrada';
+    public string $pageTitle = 'Pagina não encontrada';
 
     public function render()
     {

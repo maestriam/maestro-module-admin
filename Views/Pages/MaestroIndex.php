@@ -21,6 +21,13 @@ class MaestroIndex extends MaestroView
     public string $search = '';
 
     /**
+     * Quantidade de registros que será exibido por página.
+     *
+     * @var integer
+     */
+    public int $perPage = 10;
+
+    /**
      * Se houver alguma consulta sendo executada na página de 
      * index, deve retornar para a primeira página em caso de 
      * paginação.   
