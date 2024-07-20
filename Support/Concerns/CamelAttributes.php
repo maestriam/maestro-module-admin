@@ -16,7 +16,7 @@ trait CamelAttributes
      */
     public function __get(mixed $key) 
     {           
-        if ($key == 'account') dd($key);
+        //if ($key == 'account') dd($key);
 
         $value = $this->getCamelAttribute($key);
         

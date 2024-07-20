@@ -24,8 +24,8 @@ trait HandlesRequests
     }
 
     /**
-     * Verifica se a requisição solicitada é válida.
-     * Em caso de negativo, deve retornar false. 
+     * Verifica se a requisição solicitada é válida.  
+     * Em caso de negativo, deve retornar false.
      *
      * @param array|FormRequest $input
      * @return Validator
@@ -69,5 +69,18 @@ trait HandlesRequests
         $validator = $this->validator($input);
 
         return $validator->fails() ? false : true;
+    }
+
+        /**
+     * Retorna o objeto com apenas os dados que devem ser inseridos. 
+     *
+     * @param Request|array $input
+     * @return object
+     */
+    public function toInputData(Request|array $input) : object
+    {
+        $data = is_array($input) ? $input : $input->all();
+
+        return (object) $data;
     }
 }

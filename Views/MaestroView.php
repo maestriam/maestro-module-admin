@@ -6,9 +6,12 @@ use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Livewire\Attributes\Layout;
+use Maestro\Admin\Support\Concerns\FlashMessages;
 
 abstract class MaestroView extends Component
 {
+    use FlashMessages;
+
     /**
      * Caminho do arquivo-base para exibição do painel.
      *
