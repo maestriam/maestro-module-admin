@@ -3,12 +3,12 @@
 namespace Maestro\Admin\Views\Components;
 
 use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
+use Maestro\Admin\Support\Concerns\WithAlerts;
 
 class OptionResource extends Component
 {
-    use LivewireAlert;
+    use WithAlerts;
 
     /**
      * Nome do módulo que fornecerá as rotas de recursos

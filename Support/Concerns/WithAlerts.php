@@ -30,7 +30,7 @@ trait WithAlerts
      * toast de sucesso.  
      * @return void
      */
-    private function displayToast(string $text, string $title = '', string $type = 'success') 
+    public function displayToast(string $text, string $title = '', string $type = 'success') 
     {
         $this->alert($type, $title, [
             'timerProgressBar' => true,

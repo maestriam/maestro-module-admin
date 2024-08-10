@@ -39,4 +39,12 @@ abstract class MaestroForm extends MaestroView
      * @return void
      */
     abstract protected function create(array $request) : void;
+
+    /**
+     * Executa a atualização de um recurso existente na plataforma.  
+     *
+     * @param array $request
+     * @return void
+     */
+    abstract protected function update(array $request) : void;
 }
