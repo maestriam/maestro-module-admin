@@ -3,7 +3,7 @@
 namespace Maestro\Admin\Views\Components;
 
 use Livewire\Component;
-use Maestro\Users\Support\Facade\Users;
+use Maestro\Users\Support\Users;
 
 class UserDropDown extends Component
 {

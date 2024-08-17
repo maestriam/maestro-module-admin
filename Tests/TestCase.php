@@ -4,7 +4,7 @@ namespace Maestro\Admin\Tests;
 
 use Tests\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
-use Maestro\Users\Support\Facade\Users;
+use Maestro\Users\Support\Users;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class TestCase extends BaseTestCase
