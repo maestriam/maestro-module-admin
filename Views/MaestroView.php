@@ -24,7 +24,7 @@ abstract class MaestroView extends Component
      *
      * @var string
      */
-    protected string $view;
+    protected string $view = '';
 
     /**
      * Título da página HTML
@@ -56,8 +56,9 @@ abstract class MaestroView extends Component
 
     /**
      * Renderiza o arquivo de view do componente,
-     * utilizando o layout base do dashboard Maestro. 
+     * utilizando o layout base do dashboard Maestro.
      *
+     * @param string|null $view
      * @param array $params
      * @return View
      */
@@ -69,7 +70,7 @@ abstract class MaestroView extends Component
 
         $params = array_merge($params, $base);    
 
-        return view($this->view, $params)->layout($this->base, $base);
+        return view($view, $params)->layout($this->base, $base);
     }
 
     /**
