@@ -5,7 +5,7 @@ namespace Maestro\Admin\Support\Concerns;
 trait PopulatesModule 
 {
     /**
-     * Gera uma certa quantidade de registros de empresas na base
+     * Gera uma certa quantidade de registros de entidades na base
      * de dados, com a finalidade de testes.  
      * Deve ser executada somente em ambientes de desenvolvimento. 
      *
