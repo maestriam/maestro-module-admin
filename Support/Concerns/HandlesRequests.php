@@ -16,7 +16,7 @@ trait HandlesRequests
      * @param Request|array $input
      * @return object
      */
-    protected function getInputData(Request|array $input) : object
+    protected function toInput(Request|array $input) : object
     {
         $data = is_array($input) ? $input : $input->all();
 
@@ -33,7 +33,7 @@ trait HandlesRequests
     public function validator(array|FormRequest $input) : Validator
     {
         $data = is_array($input) ? $input : $input->all();        
-
+        
         $rules = $this->request->rules();
 
         $messages = $this->request->messages();
@@ -69,18 +69,5 @@ trait HandlesRequests
         $validator = $this->validator($input);
 
         return $validator->fails() ? false : true;
-    }
-
-        /**
-     * Retorna o objeto com apenas os dados que devem ser inseridos. 
-     *
-     * @param Request|array $input
-     * @return object
-     */
-    public function toInputData(Request|array $input) : object
-    {
-        $data = is_array($input) ? $input : $input->all();
-
-        return (object) $data;
     }
 }

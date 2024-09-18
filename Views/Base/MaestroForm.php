@@ -20,7 +20,7 @@ abstract class MaestroForm extends MaestroView
      *
      * @return array
      */
-    abstract protected function getRequest() : array;
+    //abstract protected function getRequest() : array;
 
     /**
      * Executa a validação dos dados enviado pelo usuário.  
