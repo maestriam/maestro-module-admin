@@ -2,6 +2,7 @@
 
 namespace Maestro\Admin\Support\Concerns;
 
+use Exception;
 use Maestro\Admin\Exceptions\ModelMethodNotExists;
 
 trait PopulatesModule 
@@ -23,7 +24,11 @@ trait PopulatesModule
         $collection = [];
 
         for ($i=0; $i < $quantity; $i++) { 
-            $collection[] = $this->model($args);
+            try {
+                $collection[] = $this->model($args);
+            } catch (Exception $e) {
+                continue;
+            }
         }
 
         return $collection;
