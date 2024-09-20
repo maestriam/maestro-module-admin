@@ -9,7 +9,7 @@ trait PageRedirections
      *
      * @return mixed
      */
-    private function goToPageNotFound() : mixed
+    private function pageNotFound() : mixed
     {
         return redirect()->route('maestro.admin.not-found');
     }

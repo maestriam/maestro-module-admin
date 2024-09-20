@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator as ValidatorFactory;
 trait HandlesRequests 
 {
     /**
-     * Retorna o objeto com apenas os dados que devem ser inseridos. 
+     * Retorna os dados inseridos pelo usuário na versão objeto.  
      *
      * @param Request|array $input
      * @return object
