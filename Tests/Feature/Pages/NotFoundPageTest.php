@@ -1,5 +1,7 @@
 <?php
 
+namespace Maestro\Admin\Tests\Feature\Pages;
+
 use Livewire\Livewire;
 use Maestro\Admin\Tests\TestCase;
 use Maestro\Admin\Views\Pages\NotFoundPage;
