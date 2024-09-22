@@ -69,12 +69,12 @@ class SetupCommand extends Command
      */
     private function enableModules() : self
     {
-        Artisan::call('module:enable Admin');
-        Artisan::call('module:enable Accounts');
-        Artisan::call('module:enable Users');
-        Artisan::call('module:enable Companies');
-        Artisan::call('module:enable Projects');
-        Artisan::call('module:enable Backlog');
+        Artisan::call('maestro:enable Admin');
+        Artisan::call('maestro:enable Accounts');
+        Artisan::call('maestro:enable Users');
+        Artisan::call('maestro:enable Companies');
+        Artisan::call('maestro:enable Projects');
+        Artisan::call('maestro:enable Backlog');
         
         return $this;
     }
@@ -86,11 +86,11 @@ class SetupCommand extends Command
      */
     private function installModules() : self
     {
-        Artisan::call('module:setup Accounts');
-        Artisan::call('module:setup Users');
-        Artisan::call('module:setup Companies');
-        Artisan::call('module:setup Projects');
-        Artisan::call('module:setup Backlog');
+        Artisan::call('accounts:setup');
+        Artisan::call('users:setup');
+        Artisan::call('companies:setup');
+        Artisan::call('projects:setup');
+        Artisan::call('backlog:setup');
 
         return $this;
     }
