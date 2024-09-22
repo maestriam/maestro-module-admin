@@ -40,12 +40,16 @@ class SetupCommand extends Command
     {
         $this->setTheme()
              ->enableModules()
-             ->migrateDatabase()
-             ->seedModules(); 
+             ->installModules();
         
         $this->info('Admin module configurated with successful');      
     }
 
+    /**
+     * Instala o tema padrão do projeto Maestro. 
+     *
+     * @return self
+     */
     private function setTheme() : self
     {
         Artisan::call('samurai:publish maestriam/stylus');
@@ -55,26 +59,38 @@ class SetupCommand extends Command
         return $this;
     }
 
+    /**
+     * Habilita o módulo para que possam ser listados no sistema.
+     *
+     * @todo Atualmente, o projeto está instalando módulos que 
+     * não devem ficar no projeto base. Isso deve ser removido 
+     * em breve. 
+     * @return self
+     */
     private function enableModules() : self
     {
         Artisan::call('module:enable Admin');
-        Artisan::call('module:enable Users');
         Artisan::call('module:enable Accounts');
-
+        Artisan::call('module:enable Users');
+        Artisan::call('module:enable Companies');
+        Artisan::call('module:enable Projects');
+        Artisan::call('module:enable Backlog');
+        
         return $this;
     }
-
-    private function migrateDatabase() : self
-    {        
-        Artisan::call('maestro:migrate Accounts');
-        Artisan::call('maestro:migrate Users');
-
-        return $this;
-    }
-
-    private function seedModules() : self
+    
+    /**
+     * Executa 
+     *
+     * @return self
+     */
+    private function installModules() : self
     {
-        Artisan::call('maestro:seed Users');
+        Artisan::call('module:setup Accounts');
+        Artisan::call('module:setup Users');
+        Artisan::call('module:setup Companies');
+        Artisan::call('module:setup Projects');
+        Artisan::call('module:setup Backlog');
 
         return $this;
     }
