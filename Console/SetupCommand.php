@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class SetupCommand extends Command
 {
-     /**
+    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -86,7 +86,7 @@ class SetupCommand extends Command
      */
     private function installModules() : self
     {
-        Artisan::call('accounts:setup');
+        Artisan::call('accounts:install');
         Artisan::call('users:setup');
         Artisan::call('companies:setup');
         Artisan::call('projects:setup');
