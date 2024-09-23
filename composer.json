@@ -11,8 +11,11 @@
     "require": {
         "livewire/livewire": ">=v3.4.10",
         "maestriam/stylus": "dev-master",
+        "maestro-module/accounts": "dev-master",
         "maestro-module/users": "dev-master",
-        "maestro-module/accounts": "dev-master"
+        "maestro-module/companies": "dev-master",
+        "maestro-module/projects": "dev-master",
+        "maestro-module/backlog": "dev-master"
     },
     "extra": {
         "laravel": {
@@ -27,5 +30,29 @@
         "psr-4": {
             "Maestro\\Admin\\": "src/"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/maestriam/maestro-module-users"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/maestriam/maestro-module-accounts"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/maestriam/maestro-module-companies"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/maestriam/maestro-module-projects"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/maestriam/maestro-module-backlog"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": false
 }
