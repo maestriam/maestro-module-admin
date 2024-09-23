@@ -8,10 +8,6 @@
             "email": "giuguitar@gmail.com"
         }
     ],
-    "require": {
-        "livewire/livewire": ">=3.4.10",
-        "maestriam/stylus": ">=0.0.3"
-    },
     "extra": {
         "laravel": {
             "providers": [
