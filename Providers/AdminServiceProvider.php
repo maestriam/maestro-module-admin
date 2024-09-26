@@ -34,23 +34,10 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
         $this->registerSeeds();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-        $this->registerComponents();
         $this->registerHelpers();
         $this->registerCommands();
-    }
-
-    public function registerComponents()
-    {
-        Livewire::component('admin.sidebar', Sidebar::class);        
-        Livewire::component('admin.base-view', BaseView::class);        
-        Livewire::component('admin.user-dropdown', UserDropDown::class);
-        Livewire::component('admin.option-resource', OptionResource::class);
-        Livewire::component('admin.not-found-page', NotFoundPage::class);
-        
-        $this->app['config']['layout'] = 'admin::components.base-view';
     }
 
     public function registerCommands()
@@ -67,6 +54,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(QueryBuilderServiceProvider::class);
+        $this->app->register(ViewServiceProvider::class);
     }
 
     /**
@@ -97,25 +85,6 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register views.
-     *
-     * @return void
-     */
-    public function registerViews()
-    {
-        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
-
-        $sourcePath = module_path($this->moduleName, 'Resources/views');
-
-        $this->publishes([$sourcePath => $viewPath], [
-            'views', 
-            $this->moduleNameLower . '-module-views'
-        ]);
-
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
-    }
-
-    /**
      * Register translations.
      *
      * @return void
@@ -139,17 +108,6 @@ class AdminServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 
     private function registerSeeds() : self
