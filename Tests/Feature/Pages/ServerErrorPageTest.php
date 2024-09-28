@@ -11,9 +11,9 @@ class ServerErrorPageTest extends TestCase
     public function testRender()
     {
         Livewire::test(ServerErrorPage::class)
-            ->assertSee("<h1>500</h1>")
-            ->assertSee(__('admin::pages.title'))
-            ->assertSee(__('admin::pages.description'))
+            ->assertSeeHtml("<h1>500</h1>")
+            ->assertSee(__('admin::pages.server-error.title'))
+            ->assertSeeHtml(__('admin::pages.server-error.description'))
             ->assertStatus(200);
     }
 }
