@@ -84,7 +84,7 @@ class OptionResource extends Component
      *
      * @return void
      */
-    protected function remove()
+    public function remove()
     {
         $title =  __('admin::modals.delete.title');
         $text  =  __('admin::modals.delete.text');
