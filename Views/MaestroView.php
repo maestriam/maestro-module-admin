@@ -31,7 +31,7 @@ abstract class MaestroView extends Component
      *
      * @var string
      */
-    public string $pageTitle = "Maestro";
+    public string $pageTitle = "Maestriam Blueprint";
 
     /**
      * Título do card de conteúdo principal. 

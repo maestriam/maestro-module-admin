@@ -13,14 +13,14 @@ class SideBar extends Component
      * 
      * @var string
      */
-    public string $title = 'Maestro';
+    public string $title = 'Blueprint';
 
     /**
      * Nome abreviado do sistema
      * 
      * @var string
      */
-    public string $abbr = 'MS';
+    public string $abbr = 'BP';
 
     /**
      * Lista de módulos instalados no sistema
