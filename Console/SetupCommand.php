@@ -39,6 +39,7 @@ class SetupCommand extends Command
     public function handle()
     {
         $this->setTheme()
+             ->migrate()
              ->enableModules()
              ->installModules();
         
@@ -55,6 +56,18 @@ class SetupCommand extends Command
         Artisan::call('samurai:publish maestriam/stylus');
         Artisan::call('samurai:use maestriam/stylus');
         Artisan::call('samurai:refresh');  
+
+        return $this;
+    }
+
+    /**
+     * Executa o migrate das tabelas padrão do projeto Laravl. 
+     *
+     * @return self
+     */
+    private function migrate() : self
+    {
+        Artisan::call('migrate --path=database/migrations/');
 
         return $this;
     }
