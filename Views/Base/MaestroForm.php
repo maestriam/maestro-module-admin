@@ -2,9 +2,10 @@
 
 namespace Maestro\Admin\Views\Base;
 
+use Illuminate\Support\MessageBag;
 use Maestro\Admin\Views\MaestroView;
 
-abstract class MaestroForm extends MaestroView
+class MaestroForm extends MaestroView
 {
     /**
      * Verifica se o formulário deve ser exibido 
@@ -12,7 +13,10 @@ abstract class MaestroForm extends MaestroView
      *
      * @return boolean
      */
-    abstract protected function isEdition() : bool;
+    protected function isEdition() : bool
+    {
+        return false;
+    }
 
     /**
      * Retorna a requisição com os dados vindos do formulário 
@@ -20,7 +24,7 @@ abstract class MaestroForm extends MaestroView
      *
      * @return array
      */
-    //abstract protected function getRequest() : array;
+    //protected function getRequest() : array;
 
     /**
      * Executa a validação dos dados enviado pelo usuário.  
@@ -30,7 +34,23 @@ abstract class MaestroForm extends MaestroView
      * @param array $request
      * @return mixed
      */
-    abstract protected function guard(array $request) : mixed;
+    protected function guard(array $request) : mixed
+    {
+        if (! method_exists($this, 'creator')) return null;
+
+        $validator = $this->creator()->validator($request);
+
+        if ($validator->fails()) {
+            $this->dispatchErrors($validator->errors());
+        }
+
+        return $validator->validate();
+    }
+
+    private function dispatchErrors(MessageBag $errors)
+    {
+        
+    }
 
     /**
      * Executa a criação de um novo recurso na plataforma.  
@@ -38,7 +58,10 @@ abstract class MaestroForm extends MaestroView
      * @param array $request
      * @return void
      */
-    abstract protected function create(array $request) : void;
+    protected function create(array $request) : void
+    {
+
+    }
 
     /**
      * Executa a atualização de um recurso existente na plataforma.  
@@ -46,5 +69,8 @@ abstract class MaestroForm extends MaestroView
      * @param array $request
      * @return void
      */
-    abstract protected function update(array $request) : void;
+    protected function update(array $request) : void
+    {
+
+    }
 }

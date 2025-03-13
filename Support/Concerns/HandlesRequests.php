@@ -13,10 +13,10 @@ trait HandlesRequests
     /**
      * Retorna os dados inseridos pelo usuário na versão objeto.  
      *
-     * @param Request|array $input
+     * @param Request|FormRequest|array $input
      * @return object
      */
-    protected function toInput(Request|array $input) : object
+    protected function toInput(Request|FormRequest|array $input) : object
     {
         $data = is_array($input) ? $input : $input->all();
 
@@ -32,8 +32,8 @@ trait HandlesRequests
      */
     public function validator(array|FormRequest $input) : Validator
     {
-        $data = is_array($input) ? $input : $input->all();        
-        
+        $data = is_array($input) ? $input : $input->all();
+
         $rules = $this->request->rules();
 
         $messages = $this->request->messages();
@@ -52,9 +52,9 @@ trait HandlesRequests
      */
     protected function guard(array|FormRequest $request) : void
     {
-        if (! $this->isValid($request)) {            
-            throw new InvalidRequestException();  
-        }
+        if ($this->isValid($request)) return;
+            
+        throw new InvalidRequestException();          
     }
     
     /**
