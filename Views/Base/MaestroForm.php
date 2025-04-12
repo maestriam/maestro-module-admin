@@ -3,10 +3,13 @@
 namespace Maestro\Admin\Views\Base;
 
 use Illuminate\Support\MessageBag;
+use Maestro\Admin\Support\Concerns\PageRedirections;
 use Maestro\Admin\Views\MaestroView;
 
 class MaestroForm extends MaestroView
 {
+    use PageRedirections;
+
     /**
      * Verifica se o formulário deve ser exibido 
      * no modo edição ou no modo criação.

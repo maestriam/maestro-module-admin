@@ -61,7 +61,7 @@ class SetupCommand extends Command
     }
 
     /**
-     * Executa o migrate das tabelas padrão do projeto Laravl. 
+     * Executa o migrate das tabelas padrão do projeto Laravel. 
      *
      * @return self
      */

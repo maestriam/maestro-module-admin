@@ -10,8 +10,15 @@ use Illuminate\Support\Carbon;
  * @param string|null $date
  * @return string
  */
-function ddmmYYYY(string $date = null, bool $hour = true) : string {
+function ddmmYYYY(
+    ?string $date = null, 
+    bool $hour = true, 
+    bool $secs = false
+) : string {
+
     $date ??= Carbon::now();
-    $pattern = $hour ? "d/m/Y H:i:s" : "d/m/Y";
+
+    $pattern  = $hour ? "d/m/Y H:i" : "d/m/Y";
+    $pattern .= $secs ? ":s" : "";
     return date($pattern, strtotime($date));
 }

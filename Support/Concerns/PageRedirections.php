@@ -9,12 +9,12 @@ trait PageRedirections
      *
      * @return mixed
      */
-    private function pageNotFound() : mixed
+    protected function pageNotFound() : mixed
     {
         return redirect()->route('maestro.admin.not-found');
     }
 
-    private function pageServerError()
+    protected function pageServerError()
     {
         return redirect()->route('maestro.admin.server-error');
     }
