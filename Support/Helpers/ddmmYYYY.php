@@ -3,9 +3,8 @@
 use Illuminate\Support\Carbon;
 
 /**
- * Retorna uma determinada data no formato dd/mm/YYYY H:m:s.
- * Caso não seja informado o valor da data, retorna a 
- * data atual.
+ * Retorna uma determinada data no formato dd/mm/YYYY H:m:s.  
+ * Caso não seja informado o valor da data, retorna a data atual.
  *
  * @param string|null $date
  * @return string

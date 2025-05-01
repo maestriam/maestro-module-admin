@@ -50,7 +50,7 @@ class MaestroForm extends MaestroView
         return $validator->validate();
     }
 
-    private function dispatchErrors(MessageBag $errors)
+    protected function dispatchErrors(MessageBag $errors)
     {
         
     }

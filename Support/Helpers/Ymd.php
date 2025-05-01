@@ -13,13 +13,19 @@ use Illuminate\Support\Carbon;
  */
 function Ymd(string $date) : string
 {
-    $check = '/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/';
+    $dmYHi  = '/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/';
+    $dmYHis = '/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/';
 
-    if (! preg_match($check, $date)) return $date; 
+    $pattern =  match (true) {
+        (bool) preg_match($dmYHi, $date)  => 'd/m/Y H:i',
+        (bool) preg_match($dmYHis, $date) => 'd/m/Y H:i:s',
+        default => null,
+    };
 
-    $pattern = 'd/m/Y H:i';
-    $convert = 'Y-m-d H:i';
+    if ($pattern == null) return $date; 
     
+    $convert = 'Y-m-d H:i';
+
     return Carbon::createFromFormat($pattern, $date)
                  ->format($convert);
 }
