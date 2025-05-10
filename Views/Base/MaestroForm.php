@@ -50,6 +50,13 @@ class MaestroForm extends MaestroView
         return $validator->validate();
     }
 
+    /**
+     * Envia um evento de erro no formulário para que os outros
+     * componentes possam tratar as mensagens de erros. 
+     *
+     * @param MessageBag $errors
+     * @return void
+     */
     protected function dispatchErrors(MessageBag $errors)
     {
         
@@ -70,9 +77,9 @@ class MaestroForm extends MaestroView
      * Executa a atualização de um recurso existente na plataforma.  
      *
      * @param array $request
-     * @return void
+     * @return mixed|void
      */
-    protected function update(array $request) : void
+    protected function update(array $request) 
     {
 
     }
