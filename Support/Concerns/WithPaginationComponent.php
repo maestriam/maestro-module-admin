@@ -26,14 +26,23 @@ trait WithPaginationComponent
      *
      * @var LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 5, $page = null, $options = []) : LengthAwarePaginator
-    {
+    public function paginate(
+        $items, 
+        int $perPage = 5, 
+        ?int $page = null, 
+        array $options = []
+    ) : LengthAwarePaginator {
+
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        $items = $items instanceof Collection ? 
+            $items : Collection::make($items);
 
         $count = $items->count();
         $slice = $items->forPage($page, $perPage);
 
-        return new LengthAwarePaginator($slice, $count, $perPage, $page, $options);
+        return new LengthAwarePaginator(
+            $slice, $count, $perPage, $page, $options
+        );
     }
 }

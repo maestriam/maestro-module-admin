@@ -14,9 +14,21 @@ class MaestroForm extends MaestroView
      * Verifica se o formulário deve ser exibido 
      * no modo edição ou no modo criação.
      *
+     * @deprecated Usar a função isEditing
      * @return boolean
      */
     protected function isEdition() : bool
+    {
+        return false;
+    }
+    
+    /**
+     * Verifica se o formulário deve ser exibido 
+     * no modo edição ou no modo criação.
+     *
+     * @return boolean
+     */
+    protected function isEditing() : bool
     {
         return false;
     }
