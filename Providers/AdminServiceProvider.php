@@ -2,15 +2,8 @@
 
 namespace Maestro\Admin\Providers;
 
-use Illuminate\Support\Facades\Config;
-use Livewire\Livewire;
-use Maestro\Admin\Views\BaseView;
 use Illuminate\Support\ServiceProvider;
 use Maestro\Admin\Console\SetupCommand;
-use Maestro\Admin\Views\Pages\NotFoundPage;
-use Maestro\Admin\Views\Components\Sidebar;
-use Maestro\Admin\Views\Components\UserDropDown;
-use Maestro\Admin\Views\Components\OptionResource;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
 
 class AdminServiceProvider extends ServiceProvider

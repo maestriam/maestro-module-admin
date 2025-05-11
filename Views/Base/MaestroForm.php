@@ -8,8 +8,6 @@ use Maestro\Admin\Views\MaestroView;
 
 class MaestroForm extends MaestroView
 {
-    use PageRedirections;
-
     /**
      * Verifica se o formulário deve ser exibido 
      * no modo edição ou no modo criação.
@@ -32,14 +30,6 @@ class MaestroForm extends MaestroView
     {
         return false;
     }
-
-    /**
-     * Retorna a requisição com os dados vindos do formulário 
-     * para a criação/edição do recurso. 
-     *
-     * @return array
-     */
-    //protected function getRequest() : array;
 
     /**
      * Executa a validação dos dados enviado pelo usuário.  

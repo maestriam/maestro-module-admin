@@ -4,7 +4,7 @@ namespace Maestro\Admin\Support\Abstracts;
 
 use Illuminate\Support\Facades\Config;
 
-abstract class ViewServiceProvider extends BaseServiceProvider
+abstract class ViewProvider extends BaseServiceProvider
 {
     /**
      * Caminho do diretório raíz onde estão localizados

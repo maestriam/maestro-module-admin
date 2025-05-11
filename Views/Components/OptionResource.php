@@ -2,6 +2,7 @@
 
 namespace Maestro\Admin\Views\Components;
 
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Maestro\Admin\Support\Concerns\WithAlerts;
@@ -29,14 +30,14 @@ class OptionResource extends Component
      *
      * @var string
      */
-    protected string $edit;
+    protected ?string $edit;
 
     /**
      * Rota de visualização do recurso
      *
      * @var string
      */
-    protected string $view;
+    protected ?string $view;
 
     public function __construct()
     {        
@@ -51,16 +52,24 @@ class OptionResource extends Component
     public function initRoutes() : self
     {
         $this->edit = $this->getRoute('edit');
-        $this->view = $this->getRoute('view');
+        $this->view = $this->getRoute('view') ?? $this->getRoute('info');
 
         return $this;
     }
 
-    protected function getRoute(string $action) : string
+    /**
+     * Retorna uma rota válida de acordo com o nome de 
+     * uma ação específica. 
+     * Caso a rota não exista, deve retornar nulo.  
+     *
+     * @param string $action
+     * @return ?string
+     */
+    protected function getRoute(string $action) : ?string
     {
-        $route = sprintf("maestro.%s.%s", $this->module, $action);
+        $name = sprintf("maestro.%s.%s", $this->module, $action);
         
-        return route($route, $this->id);
+        return Route::has($name) ? route($name, $this->id) : null;
     }
 
     /**

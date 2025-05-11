@@ -4,8 +4,6 @@ namespace Maestro\Admin\Views;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Livewire\Attributes\Layout;
 use Maestro\Admin\Support\Concerns\FlashMessages;
 
 abstract class MaestroView extends Component
@@ -62,7 +60,7 @@ abstract class MaestroView extends Component
      * @param array $params
      * @return View
      */
-    public function renderView(string $view = null, array $params = []) : View
+    public function renderView(?string $view = null, array $params = []) : View
     {
         $base = $this->getBaseParams();
 

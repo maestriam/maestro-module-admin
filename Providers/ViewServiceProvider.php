@@ -2,17 +2,17 @@
 
 namespace Maestro\Admin\Providers;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Maestro\Admin\Views\BaseView;
-use Maestro\Admin\Views\Components\OptionResource;
-use Maestro\Admin\Views\Components\SideBar;
-use Maestro\Admin\Views\Components\UserDropDown;
+use Illuminate\Support\Facades\Config;
 use Maestro\Admin\Views\Pages\NotFoundPage;
+use Maestro\Admin\Views\Components\SideBar;
 use Maestro\Admin\Views\Pages\ServerErrorPage;
+use Maestro\Admin\Views\Components\UserDropDown;
+use Maestro\Admin\Support\Abstracts\ViewProvider;
+use Maestro\Admin\Views\Components\OptionResource;
 
-class ViewServiceProvider extends ServiceProvider
+class ViewServiceProvider extends ViewProvider
 {
     /**
      * @var string $moduleName
@@ -24,25 +24,34 @@ class ViewServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'admin';
 
-    public function boot()
+    /**
+     * {@inheritDoc}
+     */
+    protected string $root = 'Resources';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function boot() : void
     {
-        $this->registerViews();
+        parent::boot();
         $this->registerPages();
         $this->registerComponents();
     }
 
     /**
-     * Registra as views 
-     *
-     * @return void
+     * {@inheritDoc}
      */
-    private function registerPages()
+    protected function registerPages() : void
     {        
         Livewire::component('admin.not-found-page', NotFoundPage::class);
         Livewire::component('admin.server-error-page', ServerErrorPage::class);
     }
 
-    public function registerComponents()
+    /**
+     * {@inheritDoc}
+     */
+    protected function registerComponents() : void
     {
         Livewire::component('admin.sidebar', SideBar::class);        
         Livewire::component('admin.base-view', BaseView::class);        
@@ -50,36 +59,5 @@ class ViewServiceProvider extends ServiceProvider
         Livewire::component('admin.option-resource', OptionResource::class);
         
         $this->app['config']['layout'] = 'admin::components.base-view';
-    }
-
-    
-    /**
-     * Register views.
-     *
-     * @return void
-     */
-    public function registerViews()
-    {
-        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
-
-        $sourcePath = module_path($this->moduleName, 'Resources/views');
-
-        $this->publishes([$sourcePath => $viewPath], [
-            'views', 
-            $this->moduleNameLower . '-module-views'
-        ]);
-
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 }
