@@ -5,10 +5,12 @@ namespace Maestro\Admin\Views;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Maestro\Admin\Support\Concerns\FlashMessages;
+use Maestro\Admin\Support\Concerns\PageRedirections;
 
 abstract class MaestroView extends Component
 {
-    use FlashMessages;
+    use FlashMessages,
+        PageRedirections;
 
     /**
      * Caminho do arquivo-base para exibição do painel.
