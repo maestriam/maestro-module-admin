@@ -22,12 +22,13 @@ class EmbedTest extends TestCase
         $this->assertInstanceOf(Collection::class, $components[$slot]);
 
         $config = $components[$slot]->first();
-        $this->assertArrayHasKey('params', $config);
-        $this->assertArrayHasKey('livewire', $config);
-        $this->assertArrayHasKey('component', $config);
 
-        $this->assertTrue($config['livewire']);
-        $this->assertEquals([], $config['params']);
-        $this->assertEquals($widget, $config['component']);
+        $this->assertObjectHasProperty('name', $config);
+        $this->assertObjectHasProperty('params', $config);
+        $this->assertObjectHasProperty('livewire', $config);
+
+        $this->assertTrue($config->livewire);
+        $this->assertEquals([], $config->params);
+        $this->assertEquals($widget, $config->name);
     }
 }
