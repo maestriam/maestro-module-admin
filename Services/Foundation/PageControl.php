@@ -61,6 +61,22 @@ class PageControl
     }
 
     /**
+     * Remove os componentes inseridos dinâmicamente 
+     * de uma determinada página.   
+     * Caso não seja fornecido o nome do slot que deve ser limpo, 
+     * irá remover TODOS os componentes de TODOS slots da página. 
+     *
+     * @param string|null $slot
+     * @return void
+     */
+    public function clear(?string $slot = null) : void
+    {
+        $key = $this->key($slot);
+
+        Session::forget($key);
+    }
+
+    /**
      * Retorna a lista de componentes vinculados à uma página. 
      *
      * @param string|null $slot
