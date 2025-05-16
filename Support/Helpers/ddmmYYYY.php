@@ -15,7 +15,7 @@ function ddmmYYYY(
     bool $secs = false
 ) : string {
 
-    $date ??= Carbon::now();
+    $date ??= Carbon::now('America/Sao_Paulo');
 
     $pattern  = $hour ? "d/m/Y H:i" : "d/m/Y";
     $pattern .= $secs ? ":s" : "";
