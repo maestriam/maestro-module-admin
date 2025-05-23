@@ -11,6 +11,7 @@ use Maestro\Admin\Views\Pages\ServerErrorPage;
 use Maestro\Admin\Views\Components\UserDropDown;
 use Maestro\Admin\Support\Abstracts\ViewProvider;
 use Maestro\Admin\Views\Components\OptionResource;
+use Maestro\Admin\Views\Components\WidgetRow;
 
 class ViewServiceProvider extends ViewProvider
 {
@@ -55,6 +56,7 @@ class ViewServiceProvider extends ViewProvider
     {
         Livewire::component('admin.sidebar', SideBar::class);        
         Livewire::component('admin.base-view', BaseView::class);        
+        Livewire::component('admin:widget-row', WidgetRow::class);
         Livewire::component('admin.user-dropdown', UserDropDown::class);
         Livewire::component('admin.option-resource', OptionResource::class);
         

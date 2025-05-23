@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace Maestro\Admin\Support\Concerns;
 
@@ -36,7 +36,7 @@ trait RegistersViews
      *
      * @return void
      */
-    public function boot() : void
+    public function init() : void
     {
         $this->registerTranslations()
              ->registerViews()
