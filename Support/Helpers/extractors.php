@@ -17,7 +17,7 @@ function id(mixed $var) : ?int
     return match(true) {
         default         => null,
         is_int($var)    => $var,
-        is_enum($var)   => (int) enum_val($var),
+        is_enum($var)   => (int) enumval($var),
         is_object($var) => $var?->id ?? null, 
         is_array($var)  => $var['id'] ?? null,
     };

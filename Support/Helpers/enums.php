@@ -8,7 +8,7 @@
  * @param mixed $var
  * @return mixed
  */
-function enum_val(mixed $var) : mixed 
+function enumval(mixed $var) : mixed 
 {
     return match(true) {
         default         => null,
