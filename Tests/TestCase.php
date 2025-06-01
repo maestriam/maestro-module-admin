@@ -2,9 +2,10 @@
 
 namespace Maestro\Admin\Tests;
 
-use Tests\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Artisan;
 use Maestro\Users\Support\Users;
+use Tests\TestCase as BaseTestCase;
+use Nwidart\Modules\Facades\Module;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class TestCase extends BaseTestCase
@@ -57,6 +58,27 @@ class TestCase extends BaseTestCase
         Artisan::call('maestro:rollback Accounts');
 
         return $this;
+    }
+
+    /**
+     * Faz uma varredura por todos módulos e desabilita todos 
+     * os módulos que não precisam ser carregados neste testes.
+     * Deixa habilitado os módulos definidos na lista de necessários
+     * dentro da função. 
+     *
+     * @return void
+     */
+    private function disableModules(array $except)
+    {
+        $modules = Module::all();
+
+        foreach($modules as $module) {
+
+            if (in_array($module->getName(), $except)) 
+                continue;
+            
+            $module->disable();
+        }
     }
 
     /**

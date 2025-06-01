@@ -67,7 +67,7 @@ abstract class MaestroView extends Component
         $base = $this->getBaseParams();
 
         $view = $view ?? $this->view;
-
+        
         $params = array_merge($params, $base);    
 
         return view($view, $params)->layout($this->base, $base);
