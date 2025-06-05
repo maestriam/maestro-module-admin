@@ -2,9 +2,10 @@
 
 namespace Maestro\Admin\Views\Components;
 
-use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Route;
+use Maestro\Admin\Support\Enums\Livewire;
 use Maestro\Admin\Support\Concerns\WithAlerts;
 
 class OptionResource extends Component
@@ -82,7 +83,7 @@ class OptionResource extends Component
         return view('admin::components.option-resource');
     }
     
-    #[On('admin::option-resource:delete')]
+    #[On(Livewire::OPTION_RESOURCE_ON_DELETE->value)]
     public function confirmed()
     {
         dd('remove....');
@@ -118,7 +119,7 @@ class OptionResource extends Component
             'reverseButtons'    => true,
             'html'              => $text,
             'position'          => 'center',
-            'onConfirmed'       => 'admin::option-resource:delete',
+            'onConfirmed'       => Livewire::OPTION_RESOURCE_ON_DELETE->value,
             'denyButtonText'    => __('admin::modals.delete.cancel'),
             'confirmButtonText' => __('admin::modals.delete.confirm'),            
         ]);

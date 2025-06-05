@@ -4,13 +4,11 @@ namespace Maestro\Admin\Views\Pages;
 
 use Livewire\Attributes\Url;
 use Maestro\Admin\Views\MaestroView;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Maestro\Admin\Support\Concerns\WithPaginationComponent;
 
 class MaestroIndex extends MaestroView
 {
-    use LivewireAlert,
-        WithPaginationComponent;
+    use WithPaginationComponent;
     
     /**
      * Campo de busca para filtrar registros na tabela de usuarios
