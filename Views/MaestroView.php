@@ -6,10 +6,12 @@ use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Maestro\Admin\Support\Concerns\FlashMessages;
 use Maestro\Admin\Support\Concerns\PageRedirections;
+use Maestro\Admin\Support\Concerns\WithAlerts;
 
 abstract class MaestroView extends Component
 {
     use FlashMessages,
+        WithAlerts,
         PageRedirections;
 
     /**
