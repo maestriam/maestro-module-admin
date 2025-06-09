@@ -15,6 +15,6 @@ class NotFoundPage extends MaestroView
 
     public function render()
     {
-        return $this->renderView();
+        return $this->renderView($this->view);
     }
 }

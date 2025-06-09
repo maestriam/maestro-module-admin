@@ -67,8 +67,6 @@ abstract class MaestroView extends Component
     public function renderView(?string $view = null, array $params = []) : View
     {
         $base = $this->getBaseParams();
-
-        $view = $view ?? $this->view;
         
         $params = array_merge($params, $base);    
 

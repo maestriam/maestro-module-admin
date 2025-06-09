@@ -2,6 +2,8 @@
 
 namespace Maestro\Admin\Support\Concerns;
 
+use UnitEnum;
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Config;
 
 trait RegistersViews
@@ -29,38 +31,46 @@ trait RegistersViews
      *
      * @var string
      */
-    protected string $configFile = 'config/config.php';    
+    protected string $configFile = 'config/config.php';
 
     /**
      * Evento inicial do service provider. 
      *
-     * @return void
+     * @return self
      */
-    public function init() : void
+    public function init() : self
     {
         $this->registerTranslations()
              ->registerViews()
-             ->registerConfig();
+             ->registerConfig()
+             ->registerLivePages()
+             ->registerLiveComponents();
+        
+        return $this;
     }
 
     /**
      * Registra as páginas desenvolvidas em Livewire do módulo. 
      *
-     * @return void
+     * @return self
      */
-    protected function registerPages() : void
+    protected function registerLivePages() : self
     {
+        $this->registerLivewire('pages');
 
+        return $this;
     }
 
     /**
      * Registra os componentes de visualização do módulo
      *
-     * @return void
+     * @return self
      */
-    protected function registerComponents() : void
-    {
+    protected function registerLiveComponents() : self
+    {            
+        $this->registerLivewire('components');
 
+        return $this;
     }
 
     /**
@@ -68,7 +78,7 @@ trait RegistersViews
      *
      * @return self
      */
-    protected function registerTranslations() : self
+    protected function registerTranslations() 
     {
         $resource = $this->getPathFromResource($this->langSource);
 
@@ -104,16 +114,13 @@ trait RegistersViews
      */
     public function registerViews() : self
     {        
-        $group = $this->moduleNameLower . '-module-views';
-
+        $group = "$this->moduleNameLower-module-views";        
         $module = $this->getPathFromModule('views');
         
-        $resource = $this->getPathFromResource('views/modules');
-                
+        $resource = $this->getPathFromResource('views/modules');                
         $this->publishes([ $module => $resource ], ['views', $group]);
 
         $publishable = $this->getPublishableViewPaths($module);
-
         $this->loadViewsFrom($publishable, $this->moduleNameLower);
 
         return $this;
@@ -160,7 +167,7 @@ trait RegistersViews
 
         foreach (Config::get('view.paths') as $path) {
             
-            $registered = $path . '/modules/' . $this->moduleNameLower;
+            $registered = "$path/modules/$this->moduleNameLower";
             
             if (! is_dir($registered)) continue;             
             
@@ -168,5 +175,37 @@ trait RegistersViews
         }
 
         return array_merge($paths, [ $source ]);
+    }
+
+    /**
+     * Registra um componente Livewire no sistema. 
+     *
+     * @param string $prop
+     * @return void
+     */
+    protected function registerLivewire(string $prop) : void 
+    {
+        if (! $this->hasProperty($prop)) return;
+        
+        foreach ($this->$prop as $class => $enum) {
+            
+            $name = enumval($enum);
+
+            Livewire::component($name, $class);
+        }
+
+        return;
+    }
+
+    /**
+     * Verifica se a classe tem determinada propriedade e 
+     * se é um array
+     *
+     * @param string $name
+     * @return boolean
+     */
+    private function hasProperty(string $name) : bool
+    {
+        return (property_exists($this, $name) && is_array($this->$name));
     }
 }

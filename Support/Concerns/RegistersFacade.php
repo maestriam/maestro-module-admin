@@ -21,16 +21,28 @@ trait RegistersFacade
      */ 
     protected final function registerFacade() : self
     {   
-        if (! property_exists($this, 'facade') || $this->facade == null) {
+        if (! $this->hasFacadeProperty()) {
             throw new Exception('Facade property not defined. Define your $facade property as string and set the facade class name');
         }
         
         $facade = $this->facade;
-      
+        
         $this->app->bind($this->moduleNameLower, function () use($facade) {
             return new $facade();
         });
 
         return $this;
+    }
+
+    /**
+     * Verifica se a propriedade $facade
+     *
+     * @return boolean
+     */
+    private function hasFacadeProperty() : bool
+    {
+        $prop = 'facade';
+
+        return (property_exists($this, $prop) && $this->facade != null);
     }
 }
