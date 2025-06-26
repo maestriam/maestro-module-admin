@@ -2,54 +2,33 @@
 
 namespace Maestro\Admin\Support\Concerns;
 
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Enums\Position;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 trait WithAlerts
 {
-    use LivewireAlert;
-
     /**
      * Exibe um modal de confirmação para executar 
      * uma determinada operação.  
      * Caso o usuário confirme a operação, o modal irá disparar 
      * um evento que deverá ser escutado pelo componente executor. 
      *
-     * @deprecated Deve utilizar showConfirm
-     * @param string $confirmation
-     * @param string $text
-     * @return void
-     */
-    public function alertConfirm(string $confirmation, string $text) : void
-    {
-        $this->alert('warning', 'Atenção', [
-            'text' => $text,
-            'timer' => null,
-            'toast' => false,
-            'position' => 'center',
-            'showDenyButton' => true,
-            'reverseButtons'   => true,
-            'showConfirmButton' => true,
-            'onConfirmed' => $confirmation,
-            'deniedButtonText' => 'Cancelar',
-            'confirmButtonText' => 'Confirmar',            
-        ]);
-    }
-
-    /**
-     * Exibe um modal de confirmação para executar 
-     * uma determinada operação.  
-     * Caso o usuário confirme a operação, o modal irá disparar 
-     * um evento que deverá ser escutado pelo componente executor. 
-     *
+     * @param string $title
+     * @param string $message
      * @param string $onConfirmed
-     * @param string $text
+     * @param array $options
      * @return void
      */
-    public function showConfirm(
-        string $onConfirmed, 
+    public function confirm(
+        string $title,
         string $message,
-        array $options = [],
+        string $onConfirmed, 
+        array $options = []
     ) : void {
+
+        $event = 'dispatchEvent';
+
+        $options['reverseButtons'] = true;
 
         $denyButton = $options['denyButtonText'] ?? 
                       __('admin::modals.confirm.cancel');
@@ -57,42 +36,45 @@ trait WithAlerts
         $confirmButton = $options['confirmButtonText'] ?? 
                          __('admin::modals.confirm.confirm');
 
-        $this->alert('warning', 'Atenção', [
-            'timer'             => null,
-            'toast'             => false,
-            'showDenyButton'    => true,
-            'showConfirmButton' => true,
-            'reverseButtons'    => true,
-            'html'              => $message,
-            'position'          => 'center',
-            'onConfirmed'       => $onConfirmed,
-            'denyButtonText'    => $denyButton,
-            'confirmButtonText' => $confirmButton,             
-        ]);
+        LivewireAlert::title($title)
+                     ->warning()
+                     ->asConfirm()
+                     ->html($message)
+                     ->withOptions($options)                 
+                     ->onConfirm($event, ['event' => $onConfirmed])
+                     ->position(Position::Center)
+                     ->withDenyButton($denyButton)
+                     ->withConfirmButton($confirmButton)
+                     ->show();
     }
 
     /**
-     * Renderiza um toast na tela de acordo com o título e o texto informado.  
-     * Caso o tipo do toast não seja informado, por padrão será exibido um 
-     * toast de sucesso.  
-     * 
-     * @deprecated Deve usar showToast
+     * Exibe um modal de confirmação para executar 
+     * uma determinada operação.  
+     * Caso o usuário confirme a operação, o modal irá disparar 
+     * um evento que deverá ser escutado pelo componente executor. 
+     *
+     * @deprecated Deve usar a função confirm.
+     * @param string $onConfirmed
+     * @param string $text
      * @return void
      */
-    public function displayToast(string $text, string $title = '', string $type = 'success') 
-    {
-        $this->toast($type, $title, [
-            'timerProgressBar' => true,
-            "text"             => $text,
-            'position'         => 'bottom-end',
-        ]);
+    public function showConfirm(
+        string $onConfirmed, 
+        string $title,
+        string $message,
+        array $options = []
+    ) : void {
+
+        $this->confirm($title, $message, $onConfirmed, $options);
     }
 
     /**
      * Exibe um toast na tela de acordo com o título e o texto informado.  
      * Caso o tipo do toast não seja informado, por padrão será exibido um 
-     * toast de sucesso.  
-     * 
+     * toast de sucesso.
+     *
+     * @deprecated Deve usar a função toast.
      * @return void
      */
     public function showToast(
@@ -100,10 +82,36 @@ trait WithAlerts
         string $title = '', 
         string $type = 'success'
     ) : void {
-        $this->alert($type, $title, [
-            'timerProgressBar' => true,
-            "text"             => $text,
-            'position'         => 'bottom-end',
-        ]);
+        $this->toast($title, $text);
+    }
+
+    /**
+     * Exibe um toast na tela de acordo com o título e o texto informado.  
+     * Caso o tipo do toast não seja informado, por padrão será exibido um 
+     * toast de sucesso.
+     *
+     * @param string $title
+     * @param string $text
+     * @return void
+     */
+    public function toast(string $title, string $text)
+    {
+        LivewireAlert::title($title)
+                     ->text($text)
+                     ->success()
+                     ->toast()
+                     ->position('bottom-end')
+                     ->show();
+    }
+
+    /**
+     * Dispara o evento para o componente designado.
+     *
+     * @param array $options
+     * @return void
+     */
+    public function dispatchEvent(array $options = []) : void
+    {
+        $this->dispatch($options['event']);
     }
 }
