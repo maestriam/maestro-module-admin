@@ -4,7 +4,7 @@ namespace Maestro\Admin\Views\Components;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Route;
-use Maestro\Admin\Support\Enums\Livewire;
+use Maestro\Admin\Support\Enums\LivewireEnum;
 use Maestro\Admin\Support\Concerns\WithAlerts;
 
 class ActionMenu extends Component
@@ -158,7 +158,7 @@ class ActionMenu extends Component
      */
     public function remove() 
     {
-        $event = Livewire::ACTION_MENU_ON_DELETE->value .".$this->id";
+        $event = LivewireEnum::ACTION_MENU_ON_DELETE->value .".$this->id";
 
         $this->confirm($this->modalTitle, $this->modalText, $event);
     }
