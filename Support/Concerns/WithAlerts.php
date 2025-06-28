@@ -37,8 +37,8 @@ trait WithAlerts
                          __('admin::modals.confirm.confirm');
 
         LivewireAlert::title($title)
-                     ->warning()
                      ->asConfirm()
+                     ->warning()
                      ->html($message)
                      ->withOptions($options)                 
                      ->onConfirm($event, ['event' => $onConfirmed])

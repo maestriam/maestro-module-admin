@@ -113,7 +113,6 @@ class ActionMenu extends Component
     /**
      * Inicia as rotas principais do módulo
      * 
-     * @todo Remover as referências de get route view
      * @return self
      */
     protected function initRoutes() : self
