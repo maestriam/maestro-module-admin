@@ -11,7 +11,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Maestro\\Admin\\Providers\\AdminServiceProvider"
+                "Maestro\\Admin\\Services\\Providers\\AdminServiceProvider"
             ],
             "aliases": {
             }

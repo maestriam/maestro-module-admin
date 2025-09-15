@@ -1,20 +1,22 @@
 <?php
 
-namespace Maestro\Admin\Providers;
+namespace Maestro\Admin\Services\Providers;
 
 use Livewire\Livewire;
 use Maestro\Admin\Views\BaseView;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
 use Maestro\Admin\Views\Pages\NotFoundPage;
 use Maestro\Admin\Views\Components\SideBar;
-use Maestro\Admin\Views\Pages\ServerErrorPage;
-use Maestro\Admin\Views\Components\UserDropDown;
-use Maestro\Admin\Support\Abstracts\ViewProvider;
-use Maestro\Admin\Views\Components\ActionMenu as BaseActionMenu;
 use Maestro\Admin\Views\Components\WidgetRow;
+use Maestro\Admin\Views\Pages\ServerErrorPage;
+use Maestro\Admin\Views\Components\ActionMenu;
+use Maestro\Admin\Views\Components\UserDropDown;
+use Maestro\Admin\Support\Concerns\RegistersViews;
 
-class ViewServiceProvider extends ViewProvider
+class ViewServiceProvider extends ServiceProvider
 {
+    use RegistersViews;
+
     /**
      * @var string $moduleName
      */
@@ -28,14 +30,9 @@ class ViewServiceProvider extends ViewProvider
     /**
      * {@inheritDoc}
      */
-    protected string $root = 'Resources';
-
-    /**
-     * {@inheritDoc}
-     */
     public function boot() : void
     {
-        parent::boot();
+        $this->init();
         $this->registerPages();
         $this->registerComponents();
     }

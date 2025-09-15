@@ -1,13 +1,18 @@
 <?php
 
-namespace Maestro\Admin\Providers;
+namespace Maestro\Admin\Services\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Maestro\Admin\Console\SetupCommand;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
+use Maestro\Admin\Support\Concerns\RegistersDatabase;
+use Maestro\Admin\Support\Concerns\RegistersFacade;
 
 class AdminServiceProvider extends ServiceProvider
 {
+    use RegistersFacade,
+        RegistersDatabase;
+    
     /**
      * @var string $moduleName
      */
@@ -24,13 +29,11 @@ class AdminServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        $this->registerTranslations();
-        $this->registerConfig();
+    {   
+        $this->registerMigrations();
         $this->registerSeeds();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-        $this->registerHelpers();
         $this->registerCommands();
+        $this->registerHelpers();
     }
 
     public function registerCommands()
@@ -45,9 +48,9 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(RouteServiceProvider::class);
-        $this->app->register(QueryBuilderServiceProvider::class);
         $this->app->register(ViewServiceProvider::class);
+        $this->app->register(QueryBuilderServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
     }
 
     /**
@@ -55,17 +58,16 @@ class AdminServiceProvider extends ServiceProvider
      * 
      * @return void
      */
-    protected function registerConfig() : void
+    /*protected function registerConfig() : void
     {
-
-        $file = 'Resources/config/config.php';
+        $file = 'Views/Resources/config/config.php';
         $path = module_path($this->moduleName, $file);
         
         $target = config_path($this->moduleNameLower . '.php');
 
         $this->publishes([$path => $target], 'config');
         $this->mergeConfigFrom($path, $this->moduleNameLower);
-    }
+    }*/
 
     public function registerHelpers()
     {
@@ -82,7 +84,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerTranslations()
+    /*public function registerTranslations()
     {
         $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
 
@@ -91,7 +93,7 @@ class AdminServiceProvider extends ServiceProvider
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
         }
-    }
+    }*/
 
     /**
      * Get the services provided by the provider.
@@ -103,12 +105,12 @@ class AdminServiceProvider extends ServiceProvider
         return [];
     }
 
-    private function registerSeeds() : self
+    /*private function registerSeeds() : self
     {
         $path = __DIR__ . '/../Database/Seeders';
 
         FileRegister::from($path);
 
         return $this;
-    }
+    }*/
 }

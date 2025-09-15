@@ -1,8 +1,9 @@
 <?php
 
-namespace Maestro\Admin\Providers;
+namespace Maestro\Admin\Services\Providers;
 
 use Illuminate\Support\Facades\Route;
+use Maestro\Admin\Support\Concerns\RegistersRouters;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider

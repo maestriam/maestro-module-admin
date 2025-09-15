@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Admin\Providers;
+namespace Maestro\Admin\Services\Providers;
 
 use App;
 use Maestro\Admin\Macros\WhereConcat;
