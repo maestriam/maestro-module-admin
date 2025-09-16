@@ -5,7 +5,7 @@
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Maestro\\Admin\\Services\\Providers\\AdminServiceProvider"
+        "Maestro\\Admin\\Services\\Providers\\MainServiceProvider"
     ],
     "aliases": {},
     "files": [],

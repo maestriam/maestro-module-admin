@@ -5,6 +5,7 @@ namespace Maestro\Admin\Services\Providers;
 use Livewire\Livewire;
 use Maestro\Admin\Views\BaseView;
 use Illuminate\Support\ServiceProvider;
+use Maestro\Admin\Support\Concerns\HasModuleName;
 use Maestro\Admin\Views\Pages\NotFoundPage;
 use Maestro\Admin\Views\Components\SideBar;
 use Maestro\Admin\Views\Components\WidgetRow;
@@ -15,17 +16,8 @@ use Maestro\Admin\Support\Concerns\RegistersViews;
 
 class ViewServiceProvider extends ServiceProvider
 {
-    use RegistersViews;
-
-    /**
-     * @var string $moduleName
-     */
-    protected $moduleName = 'Admin';
-
-    /**
-     * @var string $moduleNameLower
-     */
-    protected $moduleNameLower = 'admin';
+    use HasModuleName,
+        RegistersViews;
 
     /**
      * {@inheritDoc}

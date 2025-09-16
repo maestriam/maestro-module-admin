@@ -2,7 +2,6 @@
 
 namespace Maestro\Admin\Services\Providers;
 
-use App;
 use Maestro\Admin\Macros\WhereConcat;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +13,8 @@ class QueryBuilderServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot() {
+    public function boot() 
+    {
     }
 
     /**
