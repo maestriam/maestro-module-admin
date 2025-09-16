@@ -1,10 +1,9 @@
 <?php
 
-namespace Maestro\Admin\Views\Base;
+namespace Maestro\Admin\Views\Pages;
 
 use Illuminate\Support\MessageBag;
-use Maestro\Admin\Support\Concerns\PageRedirections;
-use Maestro\Admin\Views\MaestroView;
+use Maestro\Admin\Views\Pages\MaestroView;
 
 class MaestroForm extends MaestroView
 {

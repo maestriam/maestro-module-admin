@@ -2,7 +2,7 @@
 
 namespace Maestro\Admin\Views\Pages;
 
-use Maestro\Admin\Views\MaestroView;
+use Maestro\Admin\Views\Pages\MaestroView;
 
 class ServerErrorPage extends MaestroView
 {

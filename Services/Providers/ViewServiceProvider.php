@@ -3,15 +3,15 @@
 namespace Maestro\Admin\Services\Providers;
 
 use Livewire\Livewire;
-use Maestro\Admin\Views\BaseView;
+use Maestro\Admin\Views\LayoutBase;
 use Illuminate\Support\ServiceProvider;
-use Maestro\Admin\Support\Concerns\HasModuleName;
 use Maestro\Admin\Views\Pages\NotFoundPage;
 use Maestro\Admin\Views\Components\SideBar;
 use Maestro\Admin\Views\Components\WidgetRow;
 use Maestro\Admin\Views\Pages\ServerErrorPage;
 use Maestro\Admin\Views\Components\ActionMenu;
 use Maestro\Admin\Views\Components\UserDropDown;
+use Maestro\Admin\Support\Concerns\HasModuleName;
 use Maestro\Admin\Support\Concerns\RegistersViews;
 
 class ViewServiceProvider extends ServiceProvider
@@ -44,7 +44,7 @@ class ViewServiceProvider extends ServiceProvider
     protected function registerComponents() : void
     {
         Livewire::component('admin.sidebar', SideBar::class);        
-        Livewire::component('admin.base-view', BaseView::class);        
+        Livewire::component('admin.base-view', LayoutBase::class);        
         Livewire::component('admin:widget-row', WidgetRow::class);
         Livewire::component('admin.user-dropdown', UserDropDown::class);
         Livewire::component('admin.option-resource', ActionMenu::class);

@@ -3,7 +3,7 @@
 namespace Maestro\Admin\Views\Pages;
 
 use Livewire\Attributes\Url;
-use Maestro\Admin\Views\MaestroView;
+use Maestro\Admin\Views\Pages\MaestroView;
 use Maestro\Admin\Support\Concerns\WithPaginationComponent;
 
 class MaestroIndex extends MaestroView
