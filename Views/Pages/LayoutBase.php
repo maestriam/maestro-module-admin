@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Admin\Views;
+namespace Maestro\Admin\Views\Pages;
 
 use Livewire\Component;
 

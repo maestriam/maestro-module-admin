@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Admin\Tests\Feature\Components\SideBarTest;
+namespace Maestro\Admin\Tests\Feature\Components;
 
 use Livewire\Livewire;
 use Maestriam\Maestro\Support\Maestro;
