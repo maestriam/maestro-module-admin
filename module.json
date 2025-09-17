@@ -1,6 +1,7 @@
 {
     "name": "Admin",
     "alias": "admin",
+    "visible": false,
     "description": "",
     "keywords": [],
     "priority": 0,

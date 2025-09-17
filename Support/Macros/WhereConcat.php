@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Admin\Macros;
+namespace Maestro\Admin\Support\Macros;
 
 use Exception;
 

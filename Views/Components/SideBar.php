@@ -2,7 +2,9 @@
 
 namespace Maestro\Admin\Views\Components;
 
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Maestriam\Maestro\Entities\Module;
 use Maestriam\Maestro\Support\Maestro;
 
@@ -28,6 +30,13 @@ class SideBar extends Component
      * @var array
      */
     private array $modules = [];
+
+    /**
+     * Pré-fixo das rotas vindas dos módulos Maestro. 
+     *
+     * @var string
+     */
+    private string $prefix = 'maestro.%s';
     
     /**
      * Inicia os atributos
@@ -59,12 +68,32 @@ class SideBar extends Component
         $modules = Maestro::modules()->all();
 
         foreach ($modules as $i => $module) {
+            
             if ($module->name() == 'Admin' || ! $this->isVisible($module)) {
                 unset($modules[$i]);
+                continue;
             }
+
+            $module->active = $this->routeBelongsTo($module);
         }
 
         return $modules;
+    }
+
+    /**
+     * Verifica se a rota atual pertence à um determinado módulo.
+     * Se sim, deve retornar true.
+     *
+     * @param Module $module
+     * @return boolean
+     */
+    private function routeBelongsTo(Module $module)
+    {
+        $prefix = sprintf($this->prefix, $module->lcname());
+
+        $url = Route::currentRouteName();
+
+        return (Str::of($url)->startsWith($prefix));
     }
 
     /**

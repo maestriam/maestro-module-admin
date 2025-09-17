@@ -2,9 +2,9 @@
 
 namespace Maestro\Admin\Services\Providers;
 
-use Maestro\Admin\Macros\WhereConcat;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
+use Maestro\Admin\Support\Macros\WhereConcat;
 
 class QueryBuilderServiceProvider extends ServiceProvider 
 {
