@@ -17,6 +17,9 @@
             }
         }
     },
+    "require": {
+        "jantinnerezo/livewire-alert": ">=4.0.2" 
+    },
     "autoload": {
         "psr-4": {
             "Maestro\\Admin\\": "src/"
